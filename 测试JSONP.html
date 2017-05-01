@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>testJSONP</title>
+</head>
+<body>
+	<input type="text" id="test">
+	<button id="test1">输入商品名称查询淘宝</button>
+	<p id="view"></p>
+<script>
+var vi = document.getElementById('view'), //显示结果
+	t = document.getElementById('test'), //输入框
+	t1 = document.getElementById('test1'); //按钮
+function jsonpback(js){
+	var s = js,
+		// n = JSON.parse(s),  //有点问题就是解析json会出错
+		id = s.result,
+		id1 = id[0][0],
+		id11 = id[0][1],
+		id2 = id[1][0],
+		id22 = id[1][1],
+		id3 = id[2][0],
+		id33 = id[2][1],
+		id4 = id[3][0],
+		id44 = id[3][1],
+		id5 = id[4][0],
+		id55 = id[4][1];
+	// console.log(s);
+	vi.innerHTML = `商品名称:${id1},货号:${id11} <br/>商品名称:${id2},货号:${id22} <br/>
+	商品名称:${id3},货号:${id33} <br/>商品名称:${id4},货号:${id44} <br/>商品名称:${id5},货号:${id55} <br/>`;
+}
+function creatScript(src){
+	var s = document.createElement('script');
+	s.src = src;
+	document.body.appendChild(s);
+}
+function click(){
+	var a = t.value,
+		src = 'https://suggest.taobao.com/sug?code=utf-8&q='+a+'&callback=jsonpback';
+	creatScript(src);
+}
+t1.onclick = function(){
+	click();
+}
+</script>
+</body>
+</html>
